@@ -7,18 +7,17 @@ namespace App\DB;
  */
 interface ConnectionInterface
 {
-
     /**
      * @param string $sql
      * @param array $parameters
      */
     public function execute(string $sql, array $parameters = []);
+
     /**
      * @param string $sql
      * @param array $parameters
-     * @param int $column
      *
      * @return array
      */
-    public function fetchArray(string $sql, array $parameters = [], $column = 0): array;
+    public function fetchArray(string $sql, array $parameters = []): array;
 }
