@@ -23,7 +23,7 @@ final class CreateEventHandler
     private $aggregator;
 
     /**
-     * AddEventWorker constructor.
+     * CreateEventHandler constructor.
      * @param ConnectionInterface $connection
      * @param EventCountAggregator $aggregator
      */

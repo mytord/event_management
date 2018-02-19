@@ -22,7 +22,7 @@ final class EventCountAggregator
     private $connection;
 
     /**
-     * StatRepository constructor.
+     * EventCountAggregator constructor.
      * @param CacheStorageInterface $cacheStorage
      * @param ConnectionInterface $connection
      */
