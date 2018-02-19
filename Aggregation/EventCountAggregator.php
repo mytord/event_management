@@ -90,6 +90,6 @@ final class EventCountAggregator
             $frame->getEndDate()->format('Y-m-d H:i:s'),
         ]);
 
-        return $result[0]['cnt'];
+        return $result[0]['cnt'] ?? 0;
     }
 }
