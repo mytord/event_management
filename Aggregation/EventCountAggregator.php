@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Analytic;
+namespace App\Aggregation;
 
 use App\Cache\CacheStorageInterface;
 use App\Db\ConnectionInterface;

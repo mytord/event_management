@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Analytic\EventCountAggregator;
+use App\Aggregation\EventCountAggregator;
 use App\EventRegistry\EventRegistryInterface;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\EventRegistry\Handler;
 
-use App\Analytic\EventCountAggregator;
+use App\Aggregation\EventCountAggregator;
 use App\DB\ConnectionInterface;
 use App\EventInterface;
 use App\TimeFrame;
