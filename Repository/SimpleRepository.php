@@ -28,7 +28,7 @@ class SimpleRepository implements EventRepositoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function add(EventInterface $event)
     {
@@ -42,7 +42,7 @@ class SimpleRepository implements EventRepositoryInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCountEventsInRange(\DateTimeInterface $startDate, \DateTimeInterface $endDate): int
     {
