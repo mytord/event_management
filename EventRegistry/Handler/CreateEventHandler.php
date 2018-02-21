@@ -5,6 +5,7 @@ namespace App\EventRegistry\Handler;
 use App\Aggregation\EventCountAggregator;
 use App\DB\ConnectionInterface;
 use App\EventInterface;
+use App\Repository\EventRepositoryInterface;
 use App\TimeFrame;
 
 /**
@@ -13,24 +14,24 @@ use App\TimeFrame;
 final class CreateEventHandler
 {
     /**
-     * @var ConnectionInterface
-     */
-    private $connection;
-
-    /**
      * @var EventCountAggregator
      */
     private $aggregator;
 
     /**
-     * CreateEventHandler constructor.
-     * @param ConnectionInterface $connection
-     * @param EventCountAggregator $aggregator
+     * @var EventRepositoryInterface
      */
-    public function __construct(ConnectionInterface $connection, EventCountAggregator $aggregator)
+    private $eventRepository;
+
+    /**
+     * CreateEventHandler constructor.
+     * @param EventCountAggregator $aggregator
+     * @param EventRepositoryInterface $eventRepository
+     */
+    public function __construct(EventCountAggregator $aggregator, EventRepositoryInterface $eventRepository)
     {
-        $this->connection = $connection;
         $this->aggregator = $aggregator;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -41,12 +42,7 @@ final class CreateEventHandler
     public function handle(EventInterface $event): bool
     {
         try {
-            $sql = 'INSERT INTO events (event_name, description, created_at) VALUES (?, ?, NOW())';
-
-            $this->connection->execute($sql, [
-                $event->getName(),
-                $event->getDescription(),
-            ]);
+            $this->eventRepository->add($event);
         } catch (\Exception $exception) {
             return false;
         }

@@ -3,7 +3,7 @@
 namespace App\Aggregation;
 
 use App\Cache\CacheStorageInterface;
-use App\Db\ConnectionInterface;
+use App\Repository\EventRepositoryInterface;
 use App\TimeFrame;
 
 /**
@@ -17,19 +17,19 @@ final class EventCountAggregator
     private $cacheStorage;
 
     /**
-     * @var ConnectionInterface
+     * @var EventRepositoryInterface
      */
-    private $connection;
+    private $eventRepository;
 
     /**
      * EventCountAggregator constructor.
      * @param CacheStorageInterface $cacheStorage
-     * @param ConnectionInterface $connection
+     * @param EventRepositoryInterface $eventRepository
      */
-    public function __construct(CacheStorageInterface $cacheStorage, ConnectionInterface $connection)
+    public function __construct(CacheStorageInterface $cacheStorage, EventRepositoryInterface $eventRepository)
     {
         $this->cacheStorage = $cacheStorage;
-        $this->connection = $connection;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -83,13 +83,6 @@ final class EventCountAggregator
      */
     private function getValueFromDb(TimeFrame $frame): int
     {
-        $sql = 'SELECT COUNT(id) as cnt FROM event WHERE created_at BETWEEN ? AND ?';
-
-        $result = $this->connection->fetchArray($sql, [
-            $frame->getStartDate()->format('Y-m-d H:i:s'),
-            $frame->getEndDate()->format('Y-m-d H:i:s'),
-        ]);
-
-        return $result[0]['cnt'] ?? 0;
+        return $this->eventRepository->getCountEventsInRange($frame->getStartDate(), $frame->getEndDate());
     }
 }
